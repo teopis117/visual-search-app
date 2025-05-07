@@ -1,0 +1,12 @@
+Flask==2.0.3 
+numpy==1.19.5
+Pillow==8.4.0
+scikit-learn==0.24.2 
+# Para TensorFlow, la instalación en Jetson JP4.x es delicada.
+# Recomiendo que el usuario instale TensorFlow siguiendo las guías de NVIDIA para JetPack 4.6.x
+# Por ejemplo: https://forums.developer.nvidia.com/t/official-tensorflow-for-jetson-nano/71727
+# El wheel para Python 3.6 en JP 4.6.1 podría ser algo como tensorflow-2.7.0+nv21.12-cp36-cp36m-linux_aarch64.whl
+# Si ya tienes TensorFlow funcionando de alguna manera, omite la línea de tensorflow aquí
+# y asegúrate de que tu entorno lo tenga.
+# Por ahora, dejaremos tensorflow comentado para que el usuario lo instale manualmente según su Jetson.
+# tensorflow # Comentado - Instalar manualmente para Jetson JP4.x

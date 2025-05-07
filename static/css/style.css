@@ -1,0 +1,118 @@
+/* static/css/style.css */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #f4f6f9; /* Un gris azulado muy claro y moderno */
+    color: #343a40; 
+  }
+  
+  .navbar-brand img {
+    filter: brightness(0) invert(1); /* Si tu logo es oscuro y quieres que se vea blanco en la navbar oscura */
+  }
+  
+  header h1 {
+    color: #2c3e50; /* Azul oscuro profundo */
+  }
+  
+  header .lead {
+    color: #5a7184; /* Un gris azulado más suave */
+    font-size: 1.15rem; /* Un poco más grande */
+    margin-bottom: 2rem !important;
+  }
+  
+  .card {
+    border: none; /* Tarjetas sin borde por defecto */
+  }
+  
+  /* Estilos para la previsualización de la imagen subida */
+  .query-image-wrapper {
+      background-color: #f8f9fa;
+      padding: 1rem;
+      border-radius: 0.375rem; /* Bootstrap's default border-radius */
+      border: 1px solid #dee2e6;
+  }
+  #query-image-preview {
+    max-height: 380px; 
+    width: auto; 
+    object-fit: contain;
+    display: block; /* Para centrar con margin auto si es necesario */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Estilos para las tarjetas de resultado */
+  .result-item.card {
+    transition: transform 0.25s ease-in-out, box-shadow 0.25s ease-in-out;
+  }
+  
+  .result-item.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
+  }
+  
+  .result-item .card-img-top {
+    width: 100%;
+    height: 220px; /* Altura incrementada para las imágenes de resultado */
+    object-fit: cover;
+    border-bottom: 1px solid #f1f1f1; /* Separador sutil */
+  }
+  
+  .result-item .card-body {
+    padding: 1rem;
+    text-align: center; /* Centrar el texto de similitud */
+  }
+  
+  .result-item .card-text strong {
+    color: #0d6efd; 
+    font-size: 0.95rem;
+  }
+  
+  /* Consola Hollywood - Manteniendo estilos previos con ligeros ajustes */
+  .hollywood-console-hidden {
+      display: none !important;
+  }
+  .hollywood-console-visible {
+      display: block !important;
+      background-color: #1a1d24; /* Un negro más profundo */
+      color: #61e668; /* Verde neón clásico */
+      font-family: 'Fira Code', 'Consolas', 'Monaco', monospace; /* Fuentes de programador populares */
+      padding: 12px 18px;
+      border-radius: 0.375rem;
+      border: 1px solid #2c323a;
+      margin-top: 1.25rem;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.9em;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* Sombra interior */
+  }
+  .hollywood-console-visible .console-header {
+      font-weight: 600;
+      color: #8ab4f8; /* Azul claro */
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed #4a4a4a;
+      display: flex;
+      align-items: center;
+  }
+  .hollywood-console-visible .console-header i { /* Para el ícono de terminal */
+      margin-right: 0.5rem;
+  }
+  
+  .hollywood-console-visible pre::after {
+      content: '█'; /* Cursor de bloque */
+      opacity: 1;
+      animation: blink 0.8s infinite;
+  }
+  @keyframes blink {
+      0%, 100% { opacity: 1; }
+      40%, 60% { opacity: 0; } /* Parpadeo más definido */
+  }
+  
+  /* Mejoras a la barra de progreso */
+  .progress[role="progressbar"] {
+      background-color: #e9ecef; /* Fondo más claro para la barra */
+  }
+  #progress-bar {
+      transition: width 0.6s ease; /* Transición suave para el ancho */
+  }

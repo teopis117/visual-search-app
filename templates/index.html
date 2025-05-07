@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ESIT Visual Search Pro</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body class="d-flex flex-column min-vh-100"> {/* Para el footer pegajoso */}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="{{ url_for('static', filename='images/logo_esit_blanco.png') }}" alt="Logo ESIT" height="40" class="d-inline-block align-text-top me-2"> {/* Asume logo blanco para fondo oscuro */}
+                ESIT Visual Search
+            </a>
+        </div>
+    </nav>
+
+    <main class="container flex-grow-1 my-4">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <header class="text-center mb-5">
+                    <h1 class="display-5 fw-bold">Búsqueda Visual Inteligente</h1>
+                    <p class="lead text-secondary">Descubre productos textiles similares usando el poder de la IA en NVIDIA Jetson Nano.</p>
+                </header>
+                
+                <div class="card shadow-lg mb-4">
+                    <div class="card-body p-lg-5 p-4">
+                        <form id="upload-form">
+                            <div class="mb-4">
+                                <label for="file-upload" class="form-label fs-5">1. Selecciona tu imagen de referencia:</label>
+                                <input class="form-control form-control-lg" type="file" id="file-upload" name="file" accept="image/png, image/jpeg, image/jpg" required>
+                            </div>
+                            <button type="submit" id="submit-button" class="btn btn-primary btn-lg w-100 py-3 fs-5">
+                                <i class="bi bi-search me-2"></i>Analizar y Buscar Similares
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                {/* ÁREA DE PROGRESO Y RESULTADOS */}
+                <div id="processing-output-area" style="display:none;">
+                    <div id="loading-progress-area" class="mb-4">
+                        <h4 id="progress-stage-text" class="text-center text-primary fw-normal mb-3">Iniciando...</h4>
+                        <div class="progress" role="progressbar" aria-label="Progreso de búsqueda" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="height: 35px; font-size: 1.1rem;">
+                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated fs-6 fw-semibold" style="width: 0%">0%</div>
+                        </div>
+                        <div id="hollywood-console" class="hollywood-console-hidden mt-3"> 
+                            <div class="console-header"><i class="bi bi-terminal me-2"></i>AI JETSON CORE LOG</div>
+                            <pre id="console-output"></pre>
+                        </div>
+                    </div>
+                    
+                    <div id="results-area">
+                        <div id="query-image-display" class="mb-4" style="display:none;"> {/* Contenedor solo para imagen subida */}
+                            <h2 class="h5 mb-3 fw-normal text-center">Imagen Analizada:</h2>
+                            <div class="query-image-wrapper text-center">
+                                <img id="query-image-preview" src="#" alt="Imagen Subida" class="img-fluid rounded shadow border">
+                            </div>
+                        </div>
+                        
+                        <div id="similar-products-display" style="display:none;"> {/* Contenedor para resultados */}
+                            <h2 class="h5 mb-3 fw-normal text-center">Resultados Similares del Catálogo:</h2>
+                            <div id="similar-products" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+                                {/* Los resultados (tarjetas) se insertarán aquí */}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="error-message" class="alert alert-danger mt-4" style="display:none;" role="alert"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto"> {/* Footer pegajoso */}
+        <div class="container">
+            <p class="mb-0">&copy; 2025 ESIT IPN - Laboratorio de Innovación Textil con IA. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
