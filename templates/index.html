@@ -3,21 +3,33 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ESIT Visual Search Pro</title>
+    <title>{{ page_title }} - ESIT IPN</title> {/* Título Dinámico */}
     
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
-<body class="d-flex flex-column min-vh-100"> {/* Para el footer pegajoso */}
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="{{ url_for('static', filename='images/logo_esit_blanco.png') }}" alt="Logo ESIT" height="40" class="d-inline-block align-text-top me-2"> {/* Asume logo blanco para fondo oscuro */}
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/logo_esit_blanco.png') }}" alt="Logo ESIT" height="40" class="d-inline-block align-text-top me-2">
                 ESIT Visual Search
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{{ url_for('index') }}"><i class="bi bi-search me-1"></i>Búsqueda Visual</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('catalog_explorer') }}"><i class="bi bi-images me-1"></i>Explorar Catálogo</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -25,7 +37,7 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <header class="text-center mb-5">
-                    <h1 class="display-5 fw-bold">Búsqueda Visual Inteligente</h1>
+                    <h1 class="display-5 fw-bold">{{ page_title }}</h1>
                     <p class="lead text-secondary">Descubre productos textiles similares usando el poder de la IA en NVIDIA Jetson Nano.</p>
                 </header>
                 
@@ -43,7 +55,6 @@
                     </div>
                 </div>
 
-                {/* ÁREA DE PROGRESO Y RESULTADOS */}
                 <div id="processing-output-area" style="display:none;">
                     <div id="loading-progress-area" class="mb-4">
                         <h4 id="progress-stage-text" class="text-center text-primary fw-normal mb-3">Iniciando...</h4>
@@ -57,14 +68,14 @@
                     </div>
                     
                     <div id="results-area">
-                        <div id="query-image-display" class="mb-4" style="display:none;"> {/* Contenedor solo para imagen subida */}
+                        <div id="query-image-display" class="mb-4" style="display:none;">
                             <h2 class="h5 mb-3 fw-normal text-center">Imagen Analizada:</h2>
                             <div class="query-image-wrapper text-center">
                                 <img id="query-image-preview" src="#" alt="Imagen Subida" class="img-fluid rounded shadow border">
                             </div>
                         </div>
                         
-                        <div id="similar-products-display" style="display:none;"> {/* Contenedor para resultados */}
+                        <div id="similar-products-display" style="display:none;">
                             <h2 class="h5 mb-3 fw-normal text-center">Resultados Similares del Catálogo:</h2>
                             <div id="similar-products" class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
                                 {/* Los resultados (tarjetas) se insertarán aquí */}
@@ -77,12 +88,43 @@
         </div>
     </main>
 
-    <footer class="bg-dark text-white text-center py-3 mt-auto"> {/* Footer pegajoso */}
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
         <div class="container">
-            <p class="mb-0">&copy; 2025 ESIT IPN - Laboratorio de Innovación Textil con IA. Todos los derechos reservados.</p>
+            <p class="mb-0">&copy; 2025 ESIT IPN - Laboratorio de Innovación Textil con IA.</p>
         </div>
     </footer>
 
+    <div class="modal fade" id="productDetailModal" tabindex="-1" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productDetailModalLabel">Detalle del Producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="modal-product-image" src="#" class="img-fluid rounded mb-3" alt="Producto">
+                        </div>
+                        <div class="col-md-6">
+                            <h4 id="modal-product-name">Nombre del Producto/Archivo</h4>
+                            <p><strong>Similitud con su búsqueda:</strong> <span id="modal-product-similarity" class="fw-bold"></span></p>
+                            <hr>
+                            <p class="text-muted small">Más detalles (próximamente):</p>
+                            <ul class="list-unstyled small">
+                                <li><strong>Tipo de Tejido:</strong> N/D (Análisis futuro)</li>
+                                <li><strong>Material Principal:</strong> N/D (Análisis futuro)</li>
+                                <li><strong>Atributos IA:</strong> N/D (Análisis futuro)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
